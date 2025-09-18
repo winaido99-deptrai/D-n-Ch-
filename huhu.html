@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dân chủ và sự ra đời, phát triển của dân chủ</title>
+  <meta name="description" content="Bài học một trang về Dân chủ: khái niệm, lịch sử phát triển, thực tiễn Việt Nam và trò chơi tương tác." />
+  <style>
+    :root{
+      --ink:#0F172A; --bg:#F8FAFC; --card:#FFFFFF; --accent:#06B6D4;
+      --muted:#64748B; --ring:#A5F3FC; --radius:14px;
+      --shadow:0 10px 18px rgba(15,23,42,.06), 0 2px 4px rgba(15,23,42,.04);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);scroll-behavior:smooth}
+    /* Toàn site Times New Roman */
+    body{font:16px/1.6 "Times New Roman", Times, serif}
+    h1,h2,h3{font-family:"Times New Roman", Times, serif}
+    h1{font-size:clamp(26px,4vw,40px);margin:0 0 6px}
+    h2{font-size:clamp(22px,3vw,30px);margin:0 0 12px}
+    h3{font-size:clamp(18px,2.2vw,22px);margin:10px 0}
+    p{margin:8px 0}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    /* Header */
+    .header{position:sticky;top:0;background:#fff;z-index:50;border-bottom:1px solid #e5e7eb;backdrop-filter:saturate(140%) blur(6px)}
+    .nav{max-width:1120px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:12px 18px;gap:10px}
+    .brand{font-weight:800;letter-spacing:.2px}
+    .menu{display:flex;gap:14px;flex-wrap:wrap}
+    .menu a{padding:8px 10px;border-radius:10px;font-weight:600;color:var(--ink)}
+    .menu a:hover{background:rgba(6,182,212,.12);color:var(--ink)}
+
+    /* sections */
+    .section{max-width:1120px;margin:30px auto;padding:18px}
+    .grid-2{display:grid;grid-template-columns:1.1fr 1fr;gap:22px}
+    .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;border:1px solid #eef2f7}
+    .note{padding:10px 12px;border-left:4px solid var(--accent);background:#ECFEFF;border-radius:10px}
+
+    /* timeline cards */
+    .timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+    .t-card{background:#fff;border:1px solid #e8eef5;border-radius:12px;padding:12px;text-align:center;box-shadow:var(--shadow)}
+
+    /* table compare */
+    table{width:100%;border-collapse:collapse;margin-top:10px;border-radius:12px;overflow:hidden}
+    th,td{border:1px solid #e5e7eb;padding:10px;text-align:center}
+    th{background:var(--accent);color:#fff}
+
+    /* quiz */
+    .q-item{margin:10px 0;padding:12px;border:1px solid #e8eef5;border-radius:12px;background:#fff}
+    .q-actions{display:flex;gap:10px;margin-top:10px}
+    .badge{display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;background:#cffafe;color:#0c4a6e}
+    .explain{font-size:14px;color:var(--muted);margin-top:6px}
+
+    /* drag & drop */
+    .drag-wrap{display:grid;grid-template-columns:1fr;gap:14px}
+    .drags{display:flex;flex-wrap:wrap;gap:10px}
+    .drag{padding:10px 12px;background:var(--accent);color:#00313a;border-radius:12px;cursor:grab;user-select:none;font-weight:700;border:1px solid #0891b2;box-shadow:0 6px 12px rgba(6,182,212,.25)}
+    .drag:active{cursor:grabbing}
+    .drops{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+    .drop{min-height:58px;border:2px dashed var(--accent);border-radius:12px;background:#F0FDFA;display:flex;align-items:center;justify-content:center;font-weight:700;color:#0c4a6e}
+    .drop.filled{border-style:solid;background:#fff}
+
+    /* Final puzzle */
+    .puzzle-wrap{position:relative;border-radius:16px;overflow:hidden;border:1px solid #e8eef5;box-shadow:var(--shadow)}
+    .puzzle-bg{background-image:url('https://upload.wikimedia.org/wikipedia/commons/0/0d/National_Assembly_of_Vietnam_building_Hanoi_2018.jpg');background-size:cover;background-position:center;height:240px;filter:saturate(105%)}
+    .mask5{position:absolute;inset:0;display:grid;grid-template-columns:repeat(5,1fr);gap:6px;padding:6px}
+    .tile{background:linear-gradient(180deg,#06B6D4,#0891b2);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;cursor:pointer;box-shadow:0 8px 16px rgba(6,182,212,.25)}
+    .tile.open{background:transparent;box-shadow:none;pointer-events:none}
+    .tile:hover{filter:brightness(.95)}
+    .q-modal{position:fixed;inset:0;background:rgba(15,23,42,.42);display:none;align-items:center;justify-content:center;padding:16px;z-index:60}
+    .q-modal .sheet{background:#fff;max-width:560px;width:100%;border-radius:16px;box-shadow:var(--shadow);padding:16px}
+    .choices{display:grid;gap:8px;margin-top:8px}
+    .choices button{text-align:left;border:1px solid #e6eef6;background:#fff;border-radius:12px;padding:10px;font-weight:600;cursor:pointer}
+    .choices button:hover{border-color:var(--accent);box-shadow:0 0 0 4px var(--ring)}
+    .row-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+    .btn{border:0;padding:10px 14px;border-radius:12px;font-weight:700;cursor:pointer}
+    .btn.primary{background:var(--accent);color:#00313a}
+    .btn.ghost{background:#fff;border:1px solid #e5e7eb}
+    .center{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+    .score{font-weight:800}
+
+    /* footer */
+    .footer{padding:24px;text-align:center;color:#e6faff;background:#0F172A;margin-top:30px}
+    .footer a{color:#67e8f9}
+
+    /* responsive */
+    @media (max-width:920px){.grid-2{grid-template-columns:1fr}.timeline{grid-template-columns:repeat(2,1fr)}.drops{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:520px){.timeline{grid-template-columns:1fr}.drops{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <nav class="nav">
+      <div class="brand">DÂN CHỦ — BÀI HỌC</div>
+      <div class="menu">
+        <a href="#mo-dau">Mở đầu</a>
+        <a href="#khai-niem">Khái niệm</a>
+        <a href="#lich-su">Lịch sử</a>
+        <a href="#thuc-tien-vn">Thực tiễn VN</a>
+        <a href="#tro-choi">Trò chơi</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- KIẾN THỨC TRƯỚC: 1) Mở đầu -->
+  <section id="mo-dau" class="section">
+    <div class="grid-2">
+      <div class="card">
+        <h1>Dân chủ và sự ra đời, phát triển của dân chủ</h1>
+        <p><strong>Dân chủ</strong> = <em>demos</em> + <em>kratos</em> = quyền lực nhân dân.</p>
+        <p>Mác–Lênin: dân chủ vừa là mục tiêu, vừa là động lực.</p>
+        <p>Hồ Chí Minh: “Nước ta là nước dân chủ, địa vị cao nhất là dân, vì dân là chủ.”</p>
+        <div class="note"><strong>Key takeaway:</strong> Dân chủ là giá trị phổ quát.</div>
+      </div>
+      <div class="card">
+        <h3>Mục tiêu học</h3>
+        <ul>
+          <li>Nắm khái niệm và bản chất của dân chủ.</li>
+          <li>Hiểu tiến trình hình thành & phát triển qua các hình thái xã hội.</li>
+          <li>Liên hệ thực tiễn Việt Nam hiện nay.</li>
+          <li>Củng cố bằng bài tập tương tác (phần Trò chơi).</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2) Khái niệm -->
+  <section id="khai-niem" class="section">
+    <div class="card">
+      <h2>Khái niệm dân chủ</h2>
+      <p>Mác–Lênin: quyền lực thuộc về nhân dân; nguyên tắc tập trung dân chủ.</p>
+      <p>Hồ Chí Minh: “dân là chủ” & “dân làm chủ”.</p>
+      <p>Dân chủ là quyền con người, tồn tại cùng văn minh nhân loại.</p>
+      <div class="note"><strong>Key takeaway:</strong> Dân chủ = quyền lực của dân + cơ chế bảo đảm dân làm chủ.</div>
+    </div>
+  </section>
+
+  <!-- 3) Lịch sử + Bảng so sánh -->
+  <section id="lich-su" class="section">
+    <div class="card">
+      <h2>Sự ra đời và phát triển của dân chủ</h2>
+      <p><strong>Các giai đoạn:</strong> Nguyên thủy → Chủ nô → Phong kiến → Tư sản → XHCN.</p>
+      <div class="timeline" style="margin-top:12px">
+        <div class="t-card">Nguyên thủy – hội đồng bộ lạc</div>
+        <div class="t-card">Chủ nô – Hy Lạp cổ đại (Athen)</div>
+        <div class="t-card">Phong kiến – ngai vàng vua chúa</div>
+        <div class="t-card">Tư sản – Cách mạng Pháp/Mỹ</div>
+        <div class="t-card">XHCN – Cách mạng Tháng Mười Nga</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Bảng so sánh: Dân chủ tư sản vs Dân chủ XHCN</h3>
+      <table>
+        <tr>
+          <th>Tiêu chí</th>
+          <th>Dân chủ tư sản</th>
+          <th>Dân chủ XHCN</th>
+        </tr>
+        <tr>
+          <td>Cơ sở kinh tế</td>
+          <td>Sở hữu tư nhân TLSX</td>
+          <td>Sở hữu toàn dân, tập thể về TLSX chủ yếu</td>
+        </tr>
+        <tr>
+          <td>Chủ thể quyền lực</td>
+          <td>Giai cấp tư sản cầm quyền</td>
+          <td>Nhân dân lao động</td>
+        </tr>
+        <tr>
+          <td>Trọng tâm</td>
+          <td>Tự do cá nhân, pháp quyền hình thức</td>
+          <td>Bình đẳng, công bằng xã hội, thực chất</td>
+        </tr>
+        <tr>
+          <td>Rủi ro</td>
+          <td>Bất bình đẳng, lợi ích nhóm</td>
+          <td>Quan liêu, hình thức nếu thiếu kiểm soát</td>
+        </tr>
+        <tr>
+          <td>Mục tiêu</td>
+          <td>Bảo vệ trật tự tư hữu</td>
+          <td>Giải phóng con người, vì đa số nhân dân</td>
+        </tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- 4) Thực tiễn Việt Nam -->
+  <section id="thuc-tien-vn" class="section">
+    <div class="card">
+      <h2>Liên hệ thực tiễn Việt Nam</h2>
+      <p>Hiến pháp 2013: “Tất cả quyền lực nhà nước thuộc về nhân dân.”</p>
+      <p>Thực hiện: bầu cử QH/HĐND, tiếp xúc cử tri, phản biện xã hội, quy chế dân chủ ở cơ sở.</p>
+      <p>Chuyển đổi số: dịch vụ công trực tuyến, công khai ngân sách, kênh góp ý.</p>
+      <div class="note"><strong>Key takeaway:</strong> Minh bạch – trách nhiệm giải trình – nhân dân tham gia.</div>
+    </div>
+  </section>
+
+  <!-- ======= SAU KHI HỌC XONG: TRÒ CHƠI ======= -->
+  <section id="tro-choi" class="section">
+    <!-- Quiz Đúng/Sai -->
+    <div class="card" id="quiz1">
+      <div class="center" style="justify-content:space-between">
+        <h3>Mini game 1 — Quiz Đúng/Sai (6 câu)</h3>
+        <span class="badge">Chọn đáp án rồi bấm “Nộp bài”</span>
+      </div>
+      <div id="quizList"></div>
+      <div class="row-actions">
+        <button class="btn primary" id="submitQuiz">Nộp bài</button>
+        <button class="btn ghost" id="resetQuiz">Làm lại</button>
+        <span class="score" id="quizScore"></span>
+      </div>
+    </div>
+
+    <!-- Drag & Drop Timeline (không lộ đáp án) -->
+    <div class="card">
+      <h3>Mini game 2 — Kéo thả sắp xếp Timeline</h3>
+      <p>Xếp 5 giai đoạn theo đúng trình tự lịch sử. .</p>
+      <div class="drag-wrap">
+        <div class="drags" id="dragItems"></div>
+        <div class="drops" id="dropZones"></div>
+      </div>
+      <div class="row-actions">
+        <button class="btn primary" id="checkOrderBtn">Kiểm tra</button>
+        <button class="btn ghost" id="resetOrderBtn">Làm lại</button>
+        <span class="score" id="orderScore"></span>
+      </div>
+    </div>
+
+    <!-- Game tổng hợp 5 mảnh -->
+    <div class="card">
+      <h3>Mini game tổng hợp — Mở ảnh </h3>
+      <div class="center" style="justify-content:space-between">
+        <p>Chọn từng mảnh để trả lời trắc nghiệm. Mỗi câu đúng mở 1 mảnh. Mở đủ 5 mảnh để hoàn thành.</p>
+        <div class="center">
+                 
+        </div>
+      </div>
+      <div class="puzzle-wrap" style="margin-top:12px">
+        <div class="puzzle-bg" id="puzzleBg"></div>
+        <div class="mask5" id="mask5"></div>
+      </div>
+      <div class="row-actions">
+        <button class="btn primary" id="resetFinal">Làm lại</button>
+        <span class="score" id="finalScore"></span>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div>© Bài học: Dân chủ và sự ra đời, phát triển của dân chủ • Thiết kế responsive, trò chơi tương tác</div>
+  </footer>
+
+  <!-- Modal hỏi đáp cho game cuối -->
+  <div class="q-modal" id="modal">
+    <div class="sheet">
+      <h3 id="modalQ">Câu hỏi</h3>
+      <div class="choices" id="modalChoices"></div>
+      <div class="row-actions" style="justify-content:flex-end"><button class="btn ghost" id="closeModal">Đóng</button></div>
+    </div>
+  </div>
+
+  <script>
+    /* ===== QUIZ ĐÚNG/SAI (6 câu) ===== */
+    const quizData = [
+      { text: "Theo Hy Lạp cổ đại, dân chủ nghĩa là nhân dân cai trị.", correct: true,  explain: "Từ gốc Hy Lạp: demos (nhân dân) + kratos (quyền lực)." },
+      { text: "Hồ Chí Minh cho rằng dân chủ chỉ giới hạn trong chính trị.", correct: false, explain: "Người nhấn mạnh dân chủ trong mọi lĩnh vực đời sống, kinh tế–xã hội–văn hóa." },
+      { text: "Theo Mác–Lênin, dân chủ là quyền lực thuộc về nhân dân.", correct: true,  explain: "Bản chất dân chủ XHCN: quyền lực thực sự thuộc về nhân dân lao động." },
+      { text: "Dân chủ tư sản phục vụ toàn thể nhân dân lao động.", correct: false, explain: "Trong lịch sử, dân chủ tư sản gắn với quyền lực của giai cấp tư sản." },
+      { text: "Dân chủ XHCN ra đời từ Cách mạng Tháng Mười Nga 1917.", correct: true,  explain: "Sự kiện 1917 mở ra hình thái dân chủ mới – dân chủ XHCN." },
+      { text: "Hiến pháp 2013 khẳng định quyền lực nhà nước thuộc về nhân dân.", correct: true,  explain: "Điều 2 Hiến pháp 2013 xác định rõ nguyên tắc này." }
+    ];
+
+    const quizList = document.getElementById('quizList');
+    const quizScore = document.getElementById('quizScore');
+    const submitQuiz = document.getElementById('submitQuiz');
+    const resetQuiz = document.getElementById('resetQuiz');
+
+    function renderQuiz(){
+      quizList.innerHTML = "";
+      quizData.forEach((q, i)=>{
+        const div = document.createElement('div');
+        div.className = 'q-item';
+        div.innerHTML = `
+          <div><strong>${i+1}.</strong> ${q.text}</div>
+          <div class="q-actions">
+            <label><input type="radio" name="q${i}" value="true"> Đúng</label>
+            <label><input type="radio" name="q${i}" value="false"> Sai</label>
+          </div>
+          <div class="explain" id="exp${i}" style="display:none"></div>
+        `;
+        quizList.appendChild(div);
+      });
+      quizScore.textContent = "";
+    }
+    renderQuiz();
+
+    submitQuiz.addEventListener('click', ()=>{
+      let score = 0;
+      quizData.forEach((q,i)=>{
+        const chosen = document.querySelector(`input[name="q${i}"]:checked`);
+        const exp = document.getElementById(`exp${i}`);
+        if(chosen){
+          const isRight = (chosen.value === String(q.correct));
+          if(isRight) score++;
+          exp.style.display = 'block';
+          exp.innerHTML = isRight ? `✅ Chính xác. ${q.explain}` : `❌ Chưa đúng. ${q.explain}`;
+        } else {
+          exp.style.display = 'block';
+          exp.innerHTML = `⚠️ Bạn chưa chọn đáp án. ${q.explain}`;
+        }
+      });
+      quizScore.textContent = `Kết quả: ${score}/${quizData.length}`;
+    });
+
+    resetQuiz.addEventListener('click', renderQuiz);
+
+    /* ===== DRAG & DROP TIMELINE (không lộ đáp án) ===== */
+    const correctOrder = ["Nguyên thủy","Chủ nô","Phong kiến","Tư sản","XHCN"];
+    const dragItems = document.getElementById('dragItems');
+    const dropZones = document.getElementById('dropZones');
+    const orderScore = document.getElementById('orderScore');
+    const checkOrderBtn = document.getElementById('checkOrderBtn');
+    const resetOrderBtn = document.getElementById('resetOrderBtn');
+
+    function shuffle(arr){
+      const a = [...arr];
+      for(let i=a.length-1;i>0;i--){
+        const j = Math.floor(Math.random()*(i+1));
+        [a[i],a[j]] = [a[j],a[i]];
+      }
+      return a;
+    }
+
+    function renderDragDrop(){
+      dragItems.innerHTML = "";
+      dropZones.innerHTML = "";
+
+      // Thẻ nguồn: xáo trộn nội dung
+      shuffle(correctOrder).forEach(text=>{
+        const el = document.createElement('div');
+        el.className = 'drag';
+        el.draggable = true;
+        el.textContent = text;
+        dragItems.appendChild(el);
+      });
+
+      // Ô đích: cũng xáo trộn vị trí, không ghi gợi ý
+      shuffle([1,2,3,4,5]).forEach(()=>{
+        const z = document.createElement('div');
+        z.className = 'drop';
+        dropZones.appendChild(z);
+      });
+
+      addDnDHandlers();
+      orderScore.textContent = "";
+    }
+
+    function addDnDHandlers(){
+      let dragging = null;
+      dragItems.querySelectorAll('.drag').forEach(d=>{
+        d.addEventListener('dragstart', e=>{ dragging = d; e.dataTransfer.setData('text/plain', d.textContent); });
+        d.addEventListener('dragend', ()=>{ dragging = null; });
+      });
+      document.querySelectorAll('.drop').forEach(zone=>{
+        zone.addEventListener('dragover', e=>{ e.preventDefault(); });
+        zone.addEventListener('drop', e=>{
+          e.preventDefault();
+          if(!dragging) return;
+          if(zone.children.length>0 && zone.classList.contains('filled')) return;
+          zone.innerHTML = "";
+          zone.appendChild(dragging);
+          zone.classList.add('filled');
+        });
+      });
+    }
+    renderDragDrop();
+
+    checkOrderBtn.addEventListener('click', ()=>{
+      // Đọc theo thứ tự các ô (từ trái sang phải) và so với correctOrder
+      const picked = [...dropZones.children].map(z=> z.querySelector('.drag')?.textContent || "");
+      let correct = 0;
+      for(let i=0;i<5;i++) if(picked[i]===correctOrder[i]) correct++;
+      orderScore.textContent = `Đúng ${correct}/5 vị trí`;
+    });
+
+    resetOrderBtn.addEventListener('click', renderDragDrop);
+
+    /* ===== GAME CUỐI: 5 MẢNH CHE + TRẮC NGHIỆM ===== */
+    const finalQuestions = [
+      { tile: 1, q: "“Dân chủ chủ nô” xuất hiện trong xã hội nào?", choices: ["Chiếm hữu nô lệ","Cộng sản nguyên thủy","Phong kiến","Tư bản chủ nghĩa"], correctIdx: 0 },
+      { tile: 2, q: "Nền kinh tế gắn với dân chủ tư sản là gì?", choices: ["Sở hữu toàn dân TLSX","Sở hữu tập thể TLSX","Sở hữu tư nhân TLSX","Kinh tế tự cung tự cấp"], correctIdx: 2 },
+      { tile: 3, q: "Cách mạng nào đánh dấu sự ra đời của dân chủ XHCN?", choices: ["Cách mạng Pháp 1789","Cách mạng Mỹ 1776","Tháng Mười Nga 1917","Cách mạng Công nghiệp"], correctIdx: 2 },
+      { tile: 4, q: "Theo Hồ Chí Minh, địa vị cao nhất thuộc về ai?", choices: ["Nhà nước","Nhân dân","Quốc hội","Chính phủ"], correctIdx: 1 },
+      { tile: 5, q: "Hiến pháp 2013 khẳng định điều gì?", choices: ["Tam quyền phân lập tuyệt đối","Quyền lực thuộc Nhân dân","Tư hữu tuyệt đối","Bầu cử gián tiếp toàn bộ"], correctIdx: 1 }
+    ];
+
+    const mask5 = document.getElementById('mask5');
+    const finalScore = document.getElementById('finalScore');
+    const resetFinal = document.getElementById('resetFinal');
+    const modal = document.getElementById('modal');
+    const modalQ = document.getElementById('modalQ');
+    const modalChoices = document.getElementById('modalChoices');
+    const closeModal = document.getElementById('closeModal');
+    const puzzleBg = document.getElementById('puzzleBg');
+    const imgUrl = document.getElementById('imgUrl');
+    const changeImg = document.getElementById('changeImg');
+
+    let opened = new Set();
+
+    function renderTiles(){
+      mask5.innerHTML = "";
+      for(let i=1;i<=5;i++){
+        const t = document.createElement('div');
+        t.className = 'tile';
+        t.dataset.tile = i;
+        t.textContent = `Mảnh ${i}`;
+        t.addEventListener('click', ()=> openQuestion(i));
+        mask5.appendChild(t);
+      }
+      opened.clear();
+      finalScore.textContent = "";
+    }
+    renderTiles();
+
+    function openQuestion(tileNum){
+      const data = finalQuestions.find(x=>x.tile===tileNum);
+      if(!data) return;
+      modalQ.textContent = data.q;
+      modalChoices.innerHTML = "";
+      data.choices.forEach((c, idx)=>{
+        const btn = document.createElement('button');
+        btn.textContent = c;
+        btn.addEventListener('click', ()=>{
+          if(idx === data.correctIdx){
+            const tile = [...mask5.children][tileNum-1];
+            tile.classList.add('open');
+            opened.add(tileNum);
+            finalScore.textContent = `Đã mở: ${opened.size}/5 mảnh`;
+            modal.style.display = 'none';
+            if(opened.size===5){
+              setTimeout(()=> alert("🎉 Chúc mừng! Bạn đã mở toàn bộ ảnh Quốc hội Việt Nam!"), 80);
+            }
+          } else {
+            btn.style.borderColor = "#ef4444";
+            btn.style.boxShadow = "0 0 0 4px rgba(239,68,68,.2)";
+          }
+        });
+        modalChoices.appendChild(btn);
+      });
+      modal.style.display = 'flex';
+    }
+
+    closeModal.addEventListener('click', ()=> modal.style.display='none');
+    modal.addEventListener('click', (e)=>{ if(e.target===modal) modal.style.display='none'; });
+    resetFinal.addEventListener('click', renderTiles);
+
+    // Đổi ảnh nền bằng URL người dùng nhập
+    changeImg.addEventListener('click', ()=>{
+      const url = imgUrl.value.trim();
+      if(url){ puzzleBg.style.backgroundImage = `url('${url}')`; }
+    });
+  </script>
+</body>
+</html>
